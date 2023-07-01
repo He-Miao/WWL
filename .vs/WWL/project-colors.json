@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "66ccd761-c085-4e71-8e4d-db39e45429d0": {
+      "ProjectGuid": "66ccd761-c085-4e71-8e4d-db39e45429d0",
+      "DisplayName": "WWL",
+      "ColorIndex": 0
+    },
+    "15f1f2e7-e14f-451b-a241-35900ff8ed7b": {
+      "ProjectGuid": "15f1f2e7-e14f-451b-a241-35900ff8ed7b",
+      "DisplayName": "HomeAPI",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "杂项文件",
+      "ColorIndex": -1
+    },
+    "ffab745a-4d20-4afd-82f1-dfcdf8b41d34": {
+      "ProjectGuid": "ffab745a-4d20-4afd-82f1-dfcdf8b41d34",
+      "DisplayName": "Common",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}
