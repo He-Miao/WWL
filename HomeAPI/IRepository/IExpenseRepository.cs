@@ -5,5 +5,6 @@ namespace HomeAPI.IRepository
 {
     public interface IExpenseRepository:IBaseRepository<Expense>
     {
+
     }
 }

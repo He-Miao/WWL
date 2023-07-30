@@ -1,6 +1,6 @@
-﻿using Common.Enums;
-using Common.Helpers;
+﻿using Common.Helpers;
 using HomeAPI.Attributes;
+using HomeAPI.Model.Enums;
 using HomeAPI.Model.Models;
 using HomeAPI.Tools;
 using Jaina;

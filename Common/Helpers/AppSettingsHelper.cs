@@ -13,12 +13,19 @@ namespace Common.Helpers
         {
             _config = configuration;
         }
+
+        /// <summary>
+        ///  根据键获取配置值
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <param name="IsConn">是否获取 ConnectionStrings 配置的内容，是则为true</param>
+        /// <returns></returns>
         public static string Get(string key, bool IsConn = false)
         {
             string value;
             try
             {
-                if (string.IsNullOrWhiteSpace(key)) return null;
+                if (string.IsNullOrWhiteSpace(key)) return string.Empty;
                 if (IsConn)
                 {
                     value = _config.GetConnectionString(key);
@@ -30,7 +37,7 @@ namespace Common.Helpers
             }
             catch (Exception)
             {
-                value = null;
+                value = string.Empty;
             }
             return value;
         }

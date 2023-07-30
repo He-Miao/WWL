@@ -1,16 +1,17 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Common.Converters;
 using Common.Helpers;
-using HomeAPI.Filters;
+using HomeAPI.AutoMappers;
+using HomeAPI.Model;
+using HomeAPI.Model.Enums;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using SqlSugar;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Reflection;
-using System.Text.Encodings.Web;
-using System.Text.Json.Serialization;
-using System.Text.Unicode;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 var basePath = AppContext.BaseDirectory;
@@ -21,6 +22,24 @@ var _config = new ConfigurationBuilder()
                  .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                  .Build();
 builder.Services.AddSingleton(new AppSettingsHelper(_config));
+
+#region 配置跨域
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy
+    (name: "myHomeAPI",
+        builde =>
+        {
+            builde.WithOrigins("*", "*", "*")
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        }
+    );
+});
+
+#endregion
 
 #region 注入数据库
 var dbtype = DbType.SqlServer;
@@ -38,14 +57,14 @@ builder.Services.AddSingleton(options =>
 });
 #endregion
 
-#region 初始化日志
+#region 初始化Serilog日志
 //Serilog:https://igeekfan.gitee.io/vovo-docs/dotnetcore/examples/serilog-tutorial.html
 builder.Host.UseSerilog((builderContext, config) =>
 {
     config
     .MinimumLevel.Warning()
     .Enrich.FromLogContext()
-    .WriteTo.File(Path.Combine("Logs", @"Log.txt"), rollingInterval: RollingInterval.Day);
+    .WriteTo.File(Path.Combine("Logs", @"Log.txt"), rollingInterval: RollingInterval.Day, outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] {Message:lj} {Exception}{NewLine}");
 });
 #endregion
 
@@ -84,8 +103,6 @@ if (AppSettingsHelper.Get("UseSwagger").ToBool())
 }
 #endregion
 
-
-
 #region 初始化Autofac 注入程序集（使用Autofac替换.Net本身默认的DI容器）
 //使用AutofacServiceProviderFactory作为主机的服务提供者工厂。主机是ASP.NET Core应用程序的顶级组件，它负责启动应用程序并管理依赖注入容器
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
@@ -100,16 +117,55 @@ var hostBuilder = builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 });
 #endregion
 
-// 注册控制器
+#region 初始化AutoMapper 自动映射
+builder.Services.AddAutoMapper(typeof(AutoMapperConfigs));
+#endregion
+
+#region 注册控制器
 builder.Services.AddControllersWithViews(options =>
 {
     //将GlobalExceptionFilter过滤器添加到控制器选项中
-    options.Filters.Add<GlobalExceptionFilter>();  
+    //options.Filters.Add<GlobalExceptionFilter>();
 });
-
+#endregion
 
 var app = builder.Build();
 
+#region 全局异常处理
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        //获取当前异常实例
+        var exceptionHandler = context.Features.Get<IExceptionHandlerFeature>();
+        //判断异常是否为空
+        var exception = exceptionHandler?.Error;
+        // 记录异常日志
+        Log.Error(exception, "发生未处理的异常");
+        // 返回自定义错误响应
+        context.Response.StatusCode = 500;
+        var responseData = new ResultData
+        {
+            Code = ResultCode.Error,
+            Msg = "发生了错误，请稍后再试！",
+            Data = new object[] { }
+        };
+        var jsonString = JsonSerializer.Serialize(responseData);
+        context.Response.ContentType = "application/json";
+        await context.Response.WriteAsync(jsonString);
+    });
+});
+#endregion
+
+app.UseCors("myHomeAPI");
+//配置访问静态资源的路径（官方文档：https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/static-files?view=aspnetcore-6.0）
+app.UseStaticFiles(new StaticFileOptions
+{
+    //资源所在的绝对路径
+    FileProvider = new PhysicalFileProvider(System.IO.Path.Combine(builder.Environment.ContentRootPath, "uploads")),
+    //表示访问路径,必须'/'开头
+    RequestPath = "/uploads"
+});
 //启用路由中间件，负责解析传入请求的URL，并根据指定的路由规则将请求路由到相应的处理程序或控制器。通过使用路由中间件，可以定义不同的端点和路由规则，以便将请求发送到正确的处理程序或控制器。
 app.UseRouting();
 //启用身份验证中间件

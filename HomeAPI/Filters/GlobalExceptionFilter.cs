@@ -1,6 +1,6 @@
-﻿using Common.Enums;
-using Common.Helpers;
+﻿using Common.Helpers;
 using HomeAPI.Model;
+using HomeAPI.Model.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Serilog;

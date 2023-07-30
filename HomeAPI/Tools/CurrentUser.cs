@@ -1,6 +1,4 @@
-﻿using HomeAPI.Tools;
-
-namespace HomeAPI.Repositories
+﻿namespace HomeAPI.Tools
 {
     /// <summary>
     /// 当前用户

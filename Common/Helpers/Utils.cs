@@ -93,6 +93,11 @@ namespace Common.Helpers
         }
         #endregion
 
+        /// <summary>
+        /// 根据枚举值获取枚举说明
+        /// </summary>
+        /// <param name="value">枚举值</param>
+        /// <returns></returns>
         public static string GetEnumDescription(this Enum value)
         {
             // 获取枚举类型的类型
@@ -113,6 +118,7 @@ namespace Common.Helpers
             }
             return value.ToString();
         }
+
 
         public static bool ToBool(this object thisValue, bool errorvalue = false)
         {

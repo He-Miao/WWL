@@ -50,11 +50,11 @@ namespace HomeAPI.Model.Models
         /// </summary>
         public System.Int32 AuditState { get { return this._AuditState; } set { this._AuditState = value; } }
 
-        private System.Byte[] _VoucherImg;
+        private System.String _VoucherImg;
         /// <summary>
         /// 凭证图
         /// </summary>
-        public System.Byte[] VoucherImg { get { return this._VoucherImg; } set { this._VoucherImg = value; } }
+        public System.String VoucherImg { get { return this._VoucherImg; } set { this._VoucherImg = value; } }
 
         private System.String _Explain;
         /// <summary>

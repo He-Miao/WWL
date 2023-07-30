@@ -1,29 +1,50 @@
-﻿{
+﻿//该文件仅用于开发环境和调试目的，并不应该包含敏感信息或实际部署所需的配置项。
+{
+  //指定用于验证此JSON文件的JSON模式的URL。
   "$schema": "https://json.schemastore.org/launchsettings.json",
+  //指定IIS Express服务器的全局设置
   "iisSettings": {
+    // 指定是否启用Windows身份验证。这里设置为false，表示禁用
     "windowsAuthentication": false,
+    //指定是否启用匿名身份验证。这里设置为true，表示启用。
     "anonymousAuthentication": true,
     "iisExpress": {
+      //指定应用程序的URL地址。
       "applicationUrl": "http://localhost:24462",
+      //指定用于SSL的端口号。这里设置为0，表示不使用SSL。
       "sslPort": 0
     }
   },
-  "profiles": {
+  "profiles": { //启动配置文件的部分，包含多个配置文件。
+    //HomeAPI项目配置文件。
     "HomeAPI": {
+      //指定要运行的命令名称。这里设置为"Project"，表示使用dotnet项目运行。
       "commandName": "Project",
-      "dotnetRunMessages": true,
+      //指定是否在控制台输出dotnet运行消息。这里设置为true，表示输出消息。
+      "dotnetRunMessages": false,
+      //指定是否自动启动浏览器。这里设置为true，表示自动启动。
       "launchBrowser": true,
+      //指定在浏览器中打开的URL地址。这里设置为"swagger"，表示打开Swagger页面。
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5108",
+      //指定应用程序的URL地址。
+      "applicationUrl": "http://wwl.homeapi.com:5108",
+      //指定环境变量的键值对。
       "environmentVariables": {
+        //指定ASP.NET Core的环境名称。这里设置为"Development"，表示开发环境。
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    //IIS Express配置文件
     "IIS Express": {
+      //指定要运行的命令名称。这里设置为"IISExpress"，表示使用IIS Express运行。
       "commandName": "IISExpress",
+      //指定是否自动启动浏览器。这里设置为true，表示自动启动。
       "launchBrowser": true,
+      //指定在浏览器中打开的URL地址。这里设置为"swagger"，表示打开Swagger页面。
       "launchUrl": "swagger",
+      // 指定环境变量的键值对。
       "environmentVariables": {
+        //指定ASP.NET Core的环境名称。这里设置为"Development"，表示开发环境。
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
