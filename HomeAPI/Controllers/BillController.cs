@@ -4,18 +4,23 @@ using HomeAPI.Model;
 using HomeAPI.Model.Dtos;
 using HomeAPI.Model.Models;
 using Microsoft.AspNetCore.Mvc;
-using SqlSugar;
 
 namespace HomeAPI.Controllers
 {
     /// <summary>
     /// 收支控制器
     /// </summary>
-    [Route("[controller]")]
+    [Route("homeapi/[controller]")]
+    [ApiController]
     public class BillController : BaseController
     {
         private readonly IExpenseService _expenseService;
         private readonly IMapper _mapper;
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="expenseService">收支服务对象</param>
+        /// <param name="mapper"></param>
         public BillController(IExpenseService expenseService, IMapper mapper)
         {
             _expenseService = expenseService;
@@ -28,10 +33,9 @@ namespace HomeAPI.Controllers
         /// <param name="expense">支出实体</param>
         /// <returns></returns>
         [HttpPost("AddExpenseList")]
-        public IActionResult AddExpenseList(ExpenseDto expense)
+        public IActionResult AddExpenseList(Expense expense)
         {
-            var expenseModel = _mapper.Map<Expense>(expense);
-            ResultData data = _expenseService.AddScalar(expenseModel);
+            ResultData data = _expenseService.AddScalar(expense);
             return Ok(data);
         }
 
@@ -47,32 +51,9 @@ namespace HomeAPI.Controllers
         /// <param name="pageSize">页大小</param>
         /// <returns></returns>
         [HttpGet("GetExpenseList")]
-        public ResultData GetExpenseList(string? keyword, DateTime? startTime, DateTime? endTime, int classify = 0, int auditState = 0, int currentPage = 1,int pageSize = 10)
-        {
-            #region 构建查询表达式
-            var expable = Expressionable.Create<Expense>();
-            if (!string.IsNullOrEmpty(keyword))
-            {
-                expable = expable.And(a => a.Title.Contains(keyword));
-            }
-            if (classify>0)
-            {
-                expable = expable.And(a => a.Classify == classify);
-            }
-            if (auditState > 0)
-            {
-                expable = expable.And(a => a.AuditState == auditState);
-            }
-            if (startTime != null)
-            {
-                expable = expable.And(a => a.PayDate < startTime);
-            }
-            if (endTime != null)
-            {
-                expable = expable.And(a => a.PayDate > endTime);
-            }
-            #endregion
-            ResultData data = _expenseService.QueryableByPage(expable.ToExpression(), it => it.ExpenseId, true, currentPage, pageSize);
+        public async Task<ResultData> GetExpenseList(string? keyword, DateTime? startTime, DateTime? endTime, int classify = 0, int auditState = 0, int currentPage = 1,int pageSize = 10)
+        {        
+            ResultData data =await _expenseService.GetExpenseList(keyword, startTime, endTime, classify, auditState, currentPage, pageSize);
             return data;
         }
 
@@ -89,17 +70,42 @@ namespace HomeAPI.Controllers
         }
 
         /// <summary>
+        /// 批量删除支出数据
+        /// </summary>
+        /// <param name="keys">id集合</param>
+        /// <returns></returns>
+        [HttpPost("DeleteExpenseList")]
+        public ResultData DeleteExpenseList(List<dynamic> keys)
+        {
+            ResultData data = _expenseService.Delete(keys);
+            return data;
+        }
+
+        /// <summary>
         /// 修改支出记录
         /// </summary>
-        /// <param name="expense">支出实体</param>
+        /// <param name="expenseDto">支出实体</param>
         /// <returns></returns>
         [HttpPatch("ModifyExpense")]
-        public IActionResult ModifyExpense(ExpenseDto expense)
+        public IActionResult ModifyExpense(Expense expense)
         {
-            var expenseModel = _mapper.Map<Expense>(expense);
-            expenseModel.CreationTime = DateTime.Now;
-            ResultData data = _expenseService.Update(expenseModel);
+            ResultData data = _expenseService.Update(expense);
             return Ok(data);
         }
+
+
+        #region chart图表数据
+        /// <summary>
+        /// 获取支出图表数据
+        /// </summary>
+        /// <param name="year">年（参数形式为2020,2021）</param>
+        /// <param name="month">月</param>
+        /// <returns></returns>
+        [HttpGet("GetExpenseChat")]
+        public IActionResult GetExpenseChat(string year, int month)
+        {
+            return Ok(_expenseService.GetExpenseChat(year, month));
+        }
+        #endregion
     }
 }

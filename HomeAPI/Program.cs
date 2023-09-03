@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Common.Converters;
 using Common.Helpers;
 using HomeAPI.AutoMappers;
 using HomeAPI.Model;
@@ -122,10 +123,16 @@ builder.Services.AddAutoMapper(typeof(AutoMapperConfigs));
 #endregion
 
 #region 注册控制器
-builder.Services.AddControllersWithViews(options =>
+builder.Services.AddControllers(options =>
 {
     //将GlobalExceptionFilter过滤器添加到控制器选项中
-    //options.Filters.Add<GlobalExceptionFilter>();
+  //  options.Filters.Add<GlobalExceptionFilter>();
+})
+.AddJsonOptions(options =>
+{
+    //通过配置 JsonSerializerOptions 来自定义 JSON 的日期格式
+    //注意：这是使用 .NET 6 中的 System.Text.Json 实现自定义日期格式的方法。如果希望使用 Newtonsoft.Json，可以在 AddJsonOptions 中使用 NewtonsoftJson 方法替代 JsonSerializerOptions。
+    options.JsonSerializerOptions.Converters.Add(new DateTimeConverter("yyyy-MM-dd HH:mm:ss"));
 });
 #endregion
 
@@ -147,7 +154,7 @@ app.UseExceptionHandler(errorApp =>
         var responseData = new ResultData
         {
             Code = ResultCode.Error,
-            Msg = "发生了错误，请稍后再试！",
+            Message = "发生了错误，请稍后再试！",
             Data = new object[] { }
         };
         var jsonString = JsonSerializer.Serialize(responseData);
@@ -173,7 +180,7 @@ app.UseAuthentication();
 //启用授权中间件，负责处理用户对资源的访问权限
 app.UseAuthorization();
 
-#region 启用swaggerUI
+#region 启用swaggerUI http://wwl.homeapi.com:5108/swagger/index.html
 if (AppSettingsHelper.Get("UseSwagger").ToBool())
 {
     app.UseSwagger();

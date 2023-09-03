@@ -24,11 +24,11 @@ namespace HomeAPI.Filters
                 var result = new ResultData
                 {
                     Code = ResultCode.Error,
-                    Msg = "服务器发生未处理的异常"
+                    Message = "服务器发生未处理的异常"
                 };
                 if (hostEnvironment.IsDevelopment())
                 {
-                    result.Msg += "：" + context.Exception.Message;
+                    result.Message += "：" + context.Exception.Message;
                     result.Data = context.Exception.StackTrace;
                 }
                 context.Result = new ContentResult

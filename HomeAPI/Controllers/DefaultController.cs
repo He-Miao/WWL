@@ -9,7 +9,8 @@ namespace HomeAPI.Controllers
     /// <summary>
     ///  其它常用的公共接口
     /// </summary>
-    [Route("[controller]")]
+    [Route("homeapi/[controller]")]
+    [ApiController]
     public class DefaultController : BaseController
     {
 
@@ -30,7 +31,7 @@ namespace HomeAPI.Controllers
                 return Ok(data);
             }
             data.Code = ResultCode.Error;
-            data.Msg = "类型必须是枚举！";
+            data.Message = "类型必须是枚举！";
             return Ok(data);
         }
 

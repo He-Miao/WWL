@@ -7,7 +7,7 @@ namespace HomeAPI.Model
     /// </summary>
     public class ResultData
     {
-        private string _msg { get; set; }
+        private string _message { get; set; }
 
         /// <summary>
         /// 状态码
@@ -16,15 +16,15 @@ namespace HomeAPI.Model
         /// <summary>
         /// 消息
         /// </summary>
-        public string Msg
+        public string Message
         {
             get
             {
-                return _msg;
+                return _message;
             }
             set
             {
-                _msg = String.IsNullOrWhiteSpace(value) ? Code.GetEnumDescription() : value;
+                _message = String.IsNullOrWhiteSpace(value) ? Code.GetEnumDescription() : value;
             }
         }
         /// <summary>

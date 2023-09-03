@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
+﻿using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
-using System.Threading.Tasks;
 
 namespace Common.Helpers
 {
@@ -38,7 +33,7 @@ namespace Common.Helpers
             return JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions()
             {
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
-            });
+            })!;//使用“!”操作符强制断言返回值不为 null
         }
     }
 }

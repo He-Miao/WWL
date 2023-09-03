@@ -7,7 +7,8 @@ namespace HomeAPI.Controllers
     /// <summary>
     /// 上传控制器
     /// </summary>
-    [Route("[controller]")]
+    [Route("homeapi/[controller]")]
+    [ApiController]
     public class UploadController : BaseController
     {
         private readonly IUploadService _uploadService;

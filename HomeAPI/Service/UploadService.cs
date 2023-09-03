@@ -32,12 +32,12 @@ namespace HomeAPI.Service
                 //构造图片路径
                 filePath = string.Format("{0}/uploads/pictures/bill/{1}", AppSettingsHelper.Get("Urls", false), file.FileName);
                result.Code = ResultCode.Success;
-                result.Msg = "上传图片成功";
+                result.Message = "上传图片成功";
                 result.Data = filePath;
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "文件上传失败";
+            result.Message = "文件上传失败";
             return result;
         }
     }

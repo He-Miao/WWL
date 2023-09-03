@@ -31,11 +31,11 @@ namespace HomeAPI.Service
             if (_repository.AddScalar(entity) > 0)
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "新增成功";
+                result.Message = "新增成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "新增失败";
+            result.Message = "新增失败";
             return result;
         }
 
@@ -50,11 +50,11 @@ namespace HomeAPI.Service
             if (await _repository.AddScalarAsync(entity) > 0)
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "新增成功";
+                result.Message = "新增成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "新增失败";
+            result.Message = "新增失败";
             return result;
         }
 
@@ -69,11 +69,11 @@ namespace HomeAPI.Service
             if ( _repository.Insert(entity))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "新增成功";
+                result.Message = "新增成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "新增失败";
+            result.Message = "新增失败";
             return result;
         }
 
@@ -87,11 +87,11 @@ namespace HomeAPI.Service
             if (await _repository.InsertAsync(entity) > 0)
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "新增成功";
+                result.Message = "新增成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "新增失败";
+            result.Message = "新增失败";
             return result;
         }
 
@@ -106,11 +106,11 @@ namespace HomeAPI.Service
             if (_repository.Insert(entity))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "新增成功";
+                result.Message = "新增成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "新增失败";
+            result.Message = "新增失败";
             return result;
         }
 
@@ -124,11 +124,11 @@ namespace HomeAPI.Service
             if (await _repository.InsertAsync(entity) > 0)
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "新增成功";
+                result.Message = "新增成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "新增失败";
+            result.Message = "新增失败";
             return result;
         }
         #endregion
@@ -144,11 +144,11 @@ namespace HomeAPI.Service
             if (_repository.Delete(keyValue))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "删除成功";
+                result.Message = "删除成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "删除失败";
+            result.Message = "删除失败";
             return result;
         }
         /// <summary>
@@ -161,11 +161,11 @@ namespace HomeAPI.Service
             if (await _repository.DeleteAsync(keyValue) > 0)
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "删除成功";
+                result.Message = "删除成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "删除失败";
+            result.Message = "删除失败";
             return result;
         }
         /// <summary>
@@ -178,11 +178,11 @@ namespace HomeAPI.Service
             if (_repository.Delete(entity))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "删除成功";
+                result.Message = "删除成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "删除失败";
+            result.Message = "删除失败";
             return result;
         }
         /// <summary>
@@ -195,11 +195,11 @@ namespace HomeAPI.Service
             if (await _repository.DeleteAsync(entity))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "删除成功";
+                result.Message = "删除成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "删除失败";
+            result.Message = "删除失败";
             return result;
         }
         /// <summary>
@@ -212,11 +212,11 @@ namespace HomeAPI.Service
             if (_repository.Delete(expression))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "删除成功";
+                result.Message = "删除成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "删除失败";
+            result.Message = "删除失败";
             return result;
         }
         /// <summary>
@@ -229,11 +229,11 @@ namespace HomeAPI.Service
             if (await _repository.DeleteAsync(expression))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "删除成功";
+                result.Message = "删除成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "删除失败";
+            result.Message = "删除失败";
             return result;
         }
         /// <summary>
@@ -246,11 +246,11 @@ namespace HomeAPI.Service
             if (_repository.Delete(keys))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "删除成功";
+                result.Message = "删除成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "删除失败";
+            result.Message = "删除失败";
             return result;
         }
         /// <summary>
@@ -263,11 +263,11 @@ namespace HomeAPI.Service
             if (await _repository.DeleteAsync(keys))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "删除成功";
+                result.Message = "删除成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "删除失败";
+            result.Message = "删除失败";
             return result;
         }
         #endregion
@@ -284,11 +284,11 @@ namespace HomeAPI.Service
             if (_repository.Update(entity, isNoUpdateNull))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "新增成功";
+                result.Message = "新增成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "新增失败";
+            result.Message = "新增失败";
             return result;
         }
 
@@ -303,11 +303,11 @@ namespace HomeAPI.Service
             if (await  _repository.UpdateAsync(entity, isNoUpdateNull))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "新增成功";
+                result.Message = "新增成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "新增失败";
+            result.Message = "新增失败";
             return result;
         }
 
@@ -322,11 +322,11 @@ namespace HomeAPI.Service
             if (_repository.Update(entity, ignoreColumns))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "修改成功";
+                result.Message = "修改成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "修改失败";
+            result.Message = "修改失败";
             return result;
         }
 
@@ -341,11 +341,11 @@ namespace HomeAPI.Service
             if (await _repository.UpdateAsync(entity, ignoreColumns))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "新增成功";
+                result.Message = "新增成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "新增失败";
+            result.Message = "新增失败";
             return result;
         }
 
@@ -361,11 +361,11 @@ namespace HomeAPI.Service
             if (_repository.Update(entity, expression, ignoreColumns))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "新增成功";
+                result.Message = "新增成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "新增失败";
+            result.Message = "新增失败";
             return result;
         }
 
@@ -381,11 +381,11 @@ namespace HomeAPI.Service
             if (await _repository.UpdateAsync(entity, expression, ignoreColumns))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "新增成功";
+                result.Message = "新增成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "新增失败";
+            result.Message = "新增失败";
             return result;
         }
 
@@ -400,11 +400,11 @@ namespace HomeAPI.Service
             if (_repository.Update(entity, expression))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "修改成功";
+                result.Message = "修改成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "修改失败";
+            result.Message = "修改失败";
             return result;
         }
 
@@ -419,11 +419,11 @@ namespace HomeAPI.Service
             if (await _repository.UpdateAsync(entity, expression))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "修改成功";
+                result.Message = "修改成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "修改失败";
+            result.Message = "修改失败";
             return result;
         }
 
@@ -438,11 +438,11 @@ namespace HomeAPI.Service
             if (_repository.Update(expression, condition))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "修改成功";
+                result.Message = "修改成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "修改失败";
+            result.Message = "修改失败";
             return result;
         }
 
@@ -457,11 +457,11 @@ namespace HomeAPI.Service
             if (await _repository.UpdateAsync(expression, condition))
             {
                 result.Code = ResultCode.Success;
-                result.Msg = "修改成功";
+                result.Message = "修改成功";
                 return result;
             }
             result.Code = ResultCode.Error;
-            result.Msg = "修改失败";
+            result.Message = "修改失败";
             return result;
         }
         #endregion   
